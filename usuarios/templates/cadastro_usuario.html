@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Cadastro Usuário</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <h1>Cadastro de Usuário</h1>
+        <hr>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}      
+        {% endif %}
+
+        <form action="{% url "cadastro_usuario" %}" method="post"> {% csrf_token %}
+            <div class="col-md-8">
+                <label for="user" class="form-label">Nome de Usuário</label>
+                <input type="text" name="user" id="user" placeholder="Digite um nome de usuário" class="form-control" required>
+                <br>
+                <label for="email" class="form-label">E-mail</label>
+                <input type="text" name="email" id="email" placeholder="Digite um email" class="form-control" required>
+                <br>
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" name="senha" id="senha" placeholder="Digite sua senha" class="form-control" required>
+                <br>
+                <label for="confirmar_senha" class="form-label">Confirmar Senha</label>
+                <input type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Confirme sua senha" class="form-control" required>
+                <br>
+                <button><a href="{% url "home" %}">Anterior</a></button>
+                <input type="submit" value="Cadastrar">
+            </div>
+        </form>
+
+    </div>
+ 
+{% endblock 'body' %}
+

@@ -4,5 +4,6 @@ from django.shortcuts import render
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", lambda request: render(request, 'home.html')),
+    path("", lambda request: render(request, 'home.html'), name="home"),
+    path("usuarios/", include('usuarios.urls'))
 ]

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Login</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <h1>Login</h1>
+        <hr>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url "login" %}" method='POST'> {% csrf_token %}
+            <div class="col-md-4">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" name="user" id="user" placeholder="Usuário" class="form-control" required>
+                <br>
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" name="senha" id="senha" placeholder="Senha" class="form-control" required>
+                <br>
+                <input type="submit" value="Logar" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+{% endblock 'body' %}
+
