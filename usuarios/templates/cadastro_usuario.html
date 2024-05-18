@@ -31,8 +31,10 @@
                 <label for="confirmar_senha" class="form-label">Confirmar Senha</label>
                 <input type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Confirme sua senha" class="form-control" required>
                 <br>
-                <button><a href="{% url "home" %}">Anterior</a></button>
-                <input type="submit" value="Cadastrar">
+                <div class="d-flex gap-2">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary">
+                    <a href="{% url "home" %}" class='btn btn-outline-dark'>Página Incial</a>
+                </div>
             </div>
         </form>
 

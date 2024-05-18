@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
-{% block 'head' %}
+{% load static %}
 
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static "css/home.css" %}">
 {% endblock 'head' %}
 
 
@@ -19,39 +21,33 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <fieldset>
-            <legend>Tabelas</legend>
-            <a href="{% url "login" %}">Login</a>
-            <a href="{% url "logout" %}">Logout</a>
-            <a href="#">
-                <p><b>Cadastro de Funcionário</b></p>
-            </a>
-        
-            <a href="{% url "cadastro_usuario" %}">
-                <p><b>Cadastro de Usuário</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Autores</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Endereço</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Editora</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Livro</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Empréstimo</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Reserva</b></p>
-            </a>
-            <a href="#">
-                <p><b>Cadastro de Exemplar</b></p>
-            </a>
-        </fieldset>
+
+        <div class="links">
+            <fieldset>
+                <legend>Tabelas</legend>
+                <a href="{% url "login" %}">Login</a>
+                <br>
+                <a href="{% url "logout" %}">Logout</a>
+                <br>
+                <a href="#">Torne-se um Funcionário</a>
+                <br>
+                <a href="{% url "cadastro_usuario" %}">Cadastro de Usuário</a>
+                <br>
+                <a href="#">Cadastro de Autores</a>
+                <br>
+                <a href="#">Cadastro de Endereço</a>
+                <br>
+                <a href="#">Cadastro de Editora</a>
+                <br>
+                <a href="#">Cadastro de Livro</a>
+                <br>
+                <a href="#">Cadastro de Empréstimo</a>
+                <br>
+                <a href="#">Cadastro de Reserva</a>
+                <br>
+                <a href="#">Cadastro de Exemplar</a>
+            </fieldset>
+        </div>
         <fieldset>
             <legend><label for="nome_tabelas"><b>Consulta de Tabelas</b></label></legend>
             <form action="consulta_tabela.php" method="post">

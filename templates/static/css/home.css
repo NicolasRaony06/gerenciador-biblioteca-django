@@ -1,0 +1,20 @@
+:root {
+    --cinza: #f3f3f3af;
+    --preto: #000000;
+}
+
+.links {
+    display: flex;
+    width: 40%;
+    padding: 3%;
+    border-radius: 8%;
+    box-shadow: 2px 2px 10px -5px var(--preto);
+    margin: 3% 3%;
+}
+
+a {
+    display: inline-flex;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
