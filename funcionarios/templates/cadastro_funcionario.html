@@ -2,4 +2,48 @@
 
 {% block 'body' %}
     <!--TODO cadastro de funcionario página-->
+    <div class="container">
+        <br>
+        <h1>Cadastro de Funcionário</h1>
+        <hr>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}      
+        {% endif %}
+
+        <form action="{% url "cadastro_funcionario" %}" method="post"> {% csrf_token %}
+            <div class="col-md-8">
+                <label for="nome" class="form-label">Nome de Funcionário</label>
+                <input type="text" name="nome" id="nome" placeholder="Digite seu nome escolhido de funcionario" class="form-control" required>
+                <br>
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" name="cpf" id="cpf" placeholder="Digite o seu CPF" class="form-control" required>
+                <br>
+                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" required>
+                <br>
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" name="telefone" id="telefone" placeholder="(DDD)0000-0000" class="form-control" required>
+                <br>
+                <label for="genero" class="form-label">Selecione seu Gênero</label>
+                <select name="genero" id="genero" class="form-select">
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminio</option>
+                    <option value="O" selected>Outro</option>
+                </select>
+                <br>
+                <label for="foto_perfil" class='form-label'>Foto de Perfil</label>
+                <input type="file" name="foto_perfil" id="foto_perfil" class="form-control">
+                <br>
+                <div class="d-flex gap-2">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary">
+                    <a href="{% url "home" %}" class='btn btn-outline-dark'>Página Incial</a>
+                </div>
+                <br>
+            </div>
+        </form>
+    </div>
 {% endblock 'body' %}

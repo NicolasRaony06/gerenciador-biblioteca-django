@@ -9,7 +9,7 @@ def home(request):
 def cadastro_funcionario(request):
     # TODO verificar se o usuário já está cadastrado como funcionário.
     if request.method == 'GET':
-        return HttpResponse("Página em criação!")
+        return render(request, 'cadastro_funcionario.html')
     
     if render.method == 'POST':
         #TODO fazer as variáveis e cadastrar na tabela correta.
