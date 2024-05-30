@@ -6,7 +6,6 @@ from usuarios.views import login
 from usuarios.models import is_logado
 
 def home(request):
-    #TODO por enquanto não há a verificação se o usuário é um funcionário e pode entrar nesta página.
     if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é um funcionário!")
         return redirect('../../')
@@ -15,7 +14,6 @@ def home(request):
         return render(request, 'home_funcionario.html')
 
 def cadastro_funcionario(request):
-    # TODO verificar se o usuário já está cadastrado como funcionário.
     if not is_logado(request):
         add_message(request, constants.ERROR, 'Você deve estar logado para se tornar um funcionário!')
         return redirect(login)
@@ -28,7 +26,6 @@ def cadastro_funcionario(request):
         return render(request, 'cadastro_funcionario.html')
     
     elif request.method == 'POST':
-        #TODO fazer as variáveis e cadastrar na tabela correta.
         nome = request.POST.get('nome')
         cpf = request.POST.get('cpf')
         data_nascimento = request.POST.get('data_nascimento')
