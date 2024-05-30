@@ -14,7 +14,7 @@
             {% endfor %}      
         {% endif %}
 
-        <form action="{% url "cadastro_funcionario" %}" method="post"> {% csrf_token %}
+        <form action="{% url "cadastro_funcionario" %}" method="post" enctype='multipart/form-data'> {% csrf_token %}
             <div class="col-md-8">
                 <label for="nome" class="form-label">Nome de Funcionário</label>
                 <input type="text" name="nome" id="nome" placeholder="Digite seu nome escolhido de funcionario" class="form-control" required>

@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.messages import add_message, constants
 
-
 def cadastro_usuario(request):
     if request.method == 'GET':
         return render(request, 'cadastro_usuario.html')

@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+def is_funcionario(request):
+    if DadosFuncionario.objects.filter(user=request.user):
+        return True
+
 class DadosFuncionario(models.Model):
     GENERO_CHOICES = [
         ('M', 'Masculino'),
