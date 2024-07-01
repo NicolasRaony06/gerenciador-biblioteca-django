@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Cadastro de Autor</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <h1>Cadastro de Autor</h1>
+        <div class="col-md-5">
+            {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+            {% endif %}
+            <form action="{% url "autor_cadastro" %}" method="post">
+                {% csrf_token %}
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" name="nome" id="nome" placeholder="Nome do Autor" required class='form-control'>
+                <br>
+                <label for="biografia" class="form-label">Biografia</label>
+                <textarea name="biografia" id="biografia" placeholder="Biografia do Autor" required class='form-control'></textarea>
+                <br>
+                <label for="nacionalidade" class="form-label">Nacionalidade</label>
+                <input type="text" name="nacionalidade" id="nacionalidade" placeholder="Nacionalidade do Autor" required class='form-control'>
+                <br>
+                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" name="data_nascimento" id="data_nascimento" placeholder="Data de Nascimento do Autor" required class='form-control'>
+                <br>
+                <input type="submit" value="Cadastrar Autor" class="btn btn-primary">
+                <a href="{% url "home_funcionario" %}" class="btn btn-outline-dark">Voltar</a>
+            </form>
+        </div>
+    </div>
+{% endblock 'body' %}
+

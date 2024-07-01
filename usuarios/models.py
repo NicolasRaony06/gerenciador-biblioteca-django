@@ -5,3 +5,4 @@ def is_logado(request):
         return False
     
     return True
+

@@ -33,6 +33,11 @@ def cadastro_funcionario(request):
         genero = request.POST.get('genero')
         foto_perfil = request.FILES.get('foto_perfil')
 
+        user = request.user
+
+        user.is_funcionario = True
+        user.save()
+
         DadosFuncionario.objects.create(
             user = request.user,
             nome_funcionario = nome,

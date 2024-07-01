@@ -9,4 +9,5 @@ urlpatterns = [
     path("", lambda request: render(request, 'home.html'), name="home"),
     path("usuarios/", include('usuarios.urls')),
     path("funcionarios/", include('funcionarios.urls')),
+    path("livros/", include('livros.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

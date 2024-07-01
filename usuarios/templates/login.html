@@ -24,6 +24,7 @@
                 <label for="senha" class="form-label">Senha</label>
                 <input type="password" name="senha" id="senha" placeholder="Senha" class="form-control" required>
                 <br>
+                <p>Não tem uma conta? <a href="{% url "cadastro_usuario" %}" style='text-decoration: None;'>Cadastre-se</a></p>
                 <div class="d-flex gap-2">
                     <input type="submit" value="Logar" class="btn btn-primary">
                     <a href="{% url "home" %}" class='btn btn-outline-dark'>Página Incial</a>
