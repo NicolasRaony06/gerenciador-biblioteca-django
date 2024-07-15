@@ -16,6 +16,7 @@ def autor_cadastro(request):
     
     if request.method == "POST":
         nome = str(request.POST.get('nome')).title().lstrip()
+        genero = request.POST.get('genero')
         biografia = request.POST.get('biografia')
         nacionalidade = request.POST.get('nacionalidade')
         data_nascimento = request.POST.get('data_nascimento')
@@ -26,6 +27,7 @@ def autor_cadastro(request):
 
             autor = Autor(
                 nome = nome,
+                genero = genero,
                 biografia = biografia,
                 nacionalidade = nacionalidade,
                 data_nascimento = data_nascimento,
@@ -39,3 +41,8 @@ def autor_cadastro(request):
         
         add_message(request, constants.ERROR, f"O Autor(a) {nome} já existe")
         return redirect(autor_cadastro)
+    
+def visualizar_autores(request):
+    if request.method == 'GET':
+        autores = Autor.objects.all()
+        return render(request, 'visualizar_autores.html', {'autores': autores})

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Visualizar Autores</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <h1>Autores</h1>
+        <div>
+            {% for autor in autores %}
+                <div>
+                    <h2>{{autor.nome}}</h2>
+                    <img src="{{autor.foto_autor.url}}" alt="foto do autor">
+                    <p>Genero {% if autor.genro == 'O' %}Indefinido{% else %}{{autor.genrero}}{% endif %}</p>
+                    <p>Nacionalidade: {{autor.nacionalidade}}</p>
+                    <p>Data de nascimento: {{autor.data_nascimento}}</p>
+                    <p>Biografia: {{autor.biografia}}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock 'body' %}

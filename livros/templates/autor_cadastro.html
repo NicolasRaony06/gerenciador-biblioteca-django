@@ -17,11 +17,17 @@
                 </section>
             {% endfor %}
             {% endif %}
-            <form action="{% url "autor_cadastro" %}" method="post">
+            <form action="{% url "autor_cadastro" %}" method="post" enctype='multipart/form-data'>
                 {% csrf_token %}
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" name="nome" id="nome" placeholder="Nome do Autor" required class='form-control'>
                 <br>
+                <label for="genero" class="form-label">Gênero</label>
+                <select name="genero" id="genero" class="form-select">
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                    <option value="O" selected>Outro</option>
+                </select>
                 <label for="biografia" class="form-label">Biografia</label>
                 <textarea name="biografia" id="biografia" placeholder="Biografia do Autor" required class='form-control'></textarea>
                 <br>
@@ -30,6 +36,9 @@
                 <br>
                 <label for="data_nascimento" class="form-label">Data de Nascimento</label>
                 <input type="date" name="data_nascimento" id="data_nascimento" placeholder="Data de Nascimento do Autor" required class='form-control'>
+                <br>
+                <label for="foto_autor" class="form-label">Foto do Autor&#40a&#41</label>
+                <input type="file" name="foto_autor" id="foto_autor" class='form-control' placeholder="Foto do Autor(a)">
                 <br>
                 <input type="submit" value="Cadastrar Autor" class="btn btn-primary">
                 <a href="{% url "home_funcionario" %}" class="btn btn-outline-dark">Voltar</a>
