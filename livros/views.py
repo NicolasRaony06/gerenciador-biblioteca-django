@@ -20,6 +20,7 @@ def autor_cadastro(request):
         biografia = request.POST.get('biografia')
         nacionalidade = request.POST.get('nacionalidade')
         data_nascimento = request.POST.get('data_nascimento')
+        foto_autor = request.FILES.get('foto_autor')
 
         funcionario = DadosFuncionario.objects.get(user=request.user)
 
@@ -31,7 +32,8 @@ def autor_cadastro(request):
                 biografia = biografia,
                 nacionalidade = nacionalidade,
                 data_nascimento = data_nascimento,
-                funcionario = funcionario
+                funcionario = funcionario,
+                foto_autor = foto_autor,
             )
 
             autor.save()

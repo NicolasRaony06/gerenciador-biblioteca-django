@@ -53,7 +53,7 @@ def login(request):
     if request.method == 'GET':
         return render(request, "login.html")
     elif request.method == 'POST':
-        username = request.POST.get('username')
+        username = str(request.POST.get('username')).title().lstrip()
         senha = request.POST.get('senha')
 
         user = auth.authenticate(request, username=username, password=senha)

@@ -34,26 +34,18 @@
                 {% else %}
                     <a href="{% url "cadastro_funcionario" %}">Torne-se um Funcionário</a>
                 {% endif %}
-
                 <br>
                 <a href="{% url "cadastro_usuario" %}">Cadastro de Usuário</a>
                 <br>
+                <a href="{% url "cadastro_usuario" %}">Usuários</a>
+                <br>
+                <a href="{% url "visualizar_autores" %}">Autores</a>
+                <br>
+                <a href="#">Editoras</a>
+                <br>
+                <a href="#">Livros</a>
+                <br>
             </fieldset>
         </div>
-        <fieldset>
-            <legend><label for="nome_tabelas"><b>Consulta de Tabelas</b></label></legend>
-            <form action="consulta_tabela.php" method="post">
-                <select name="nome_tabelas" id="nome_tabelas">
-                    <option value="3">Consultar Autores</option>
-                    <option value="5">Consultar Editora</option>
-                    <option value="6">Consultar Livro</option>
-                    <option value="7">Consultar Empréstimos</option>
-                    <option value="8">Consultar Reservas</option>
-                    <option value="9">Consultar Exemplares</option>
-                </select>
-        
-                <button>Enviar</button>
-            </form>
-        </fieldset>
     </div>
 {% endblock 'body' %}

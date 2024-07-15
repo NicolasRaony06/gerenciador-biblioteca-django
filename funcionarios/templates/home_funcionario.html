@@ -30,49 +30,15 @@
                 <br>
                 <a href="{% url "logout" %}">Logout</a>
                 <br>
-                <a href="{% url "cadastro_usuario" %}">Cadastro de Usuário</a>
+                <a href="{% url "cadastro_usuario" %}">Usuários</a>
                 <br>
-                <a href="{% url "autor_cadastro" %}">Cadastro de Autores</a>
+                <a href="{% url "visualizar_autores" %}">Autores</a>
                 <br>
-                <a href="#">Cadastro de Endereço</a>
+                <a href="#">Editoras</a>
                 <br>
-                <a href="#">Cadastro de Editora</a>
+                <a href="#">Livros</a>
                 <br>
-                <a href="#">Cadastro de Livro</a>
-                <br>
-                <a href="#">Cadastro de Empréstimo</a>
-                <br>
-                <a href="#">Cadastro de Reserva</a>
-                <br>
-                <a href="#">Cadastro de Exemplar</a>
             </fieldset>
         </div>
-        <fieldset>
-            <legend><label for="nome_tabelas"><b>Consulta de Tabelas</b></label></legend>
-            <form action="consulta_tabela.php" method="post">
-                <select name="nome_tabelas" id="nome_tabelas">
-                    <option value="1">Consultar Funcionarios</option>
-                    <option value="2">Consultar Usuários</option>
-                    <option value="3">Consultar Autores</option>
-                    <option value="4">Consultar Endereço</option>
-                    <option value="5">Consultar Editora</option>
-                    <option value="6">Consultar Livro</option>
-                    <option value="7">Consultar Empréstimos</option>
-                    <option value="8">Consultar Reservas</option>
-                    <option value="9">Consultar Exemplares</option>
-                </select>
-        
-                <button>Enviar</button>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend><b>Alteração de Tabelas</b></legend>
-            <button><a href="alterar_tabela.html">
-                <b>Alterar Tabela</b>
-            </a></button>
-            <button><a href="deletar_tabela.html">
-                <b>Deletar Tabela</b>
-            </a></button>
-        </fieldset>
     </div>
 {% endblock 'body' %}

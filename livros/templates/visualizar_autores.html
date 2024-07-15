@@ -7,16 +7,27 @@
 {% block 'body' %}
     <div class="container">
         <h1>Autores</h1>
-        <div>
+        {% if request.user.is_funcionario %}
+            <p><a href="{% url "autor_cadastro" %}">Cadastrar Autor</a></p>
+        {% endif %}
+        <div class="row">
             {% for autor in autores %}
-                <div>
-                    <h2>{{autor.nome}}</h2>
-                    <img src="{{autor.foto_autor.url}}" alt="foto do autor">
-                    <p>Genero {% if autor.genro == 'O' %}Indefinido{% else %}{{autor.genrero}}{% endif %}</p>
-                    <p>Nacionalidade: {{autor.nacionalidade}}</p>
-                    <p>Data de nascimento: {{autor.data_nascimento}}</p>
-                    <p>Biografia: {{autor.biografia}}</p>
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="d-flex align-items-center" style="height: 100%;">
+                            <img src="{{autor.foto_autor.url}}" alt="foto do autor" class="card-img-top mx-auto" style="max-width: 65%; max-height: 65%; object-fit: contain; margin-top: 5%">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{autor.nome}}</h5>
+                            <p>Genero: {% if autor.genero == 'O' %}Indefinido{% else %}{{autor.get_genero_display}}{% endif %}</p>
+                            <p>Nacionalidade: {{autor.nacionalidade}}</p>
+                            <p>Data de nascimento: {{autor.data_nascimento}}</p>
+                            <p>Biografia: {{autor.biografia}}</p>
+                        </div>
+                    </div>
                 </div>
+            {% empty %}
+                <p>Nenhum autor encontrado.</p>
             {% endfor %}
         </div>
     </div>
