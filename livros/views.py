@@ -48,3 +48,51 @@ def visualizar_autores(request):
     if request.method == 'GET':
         autores = Autor.objects.all()
         return render(request, 'visualizar_autores.html', {'autores': autores})
+
+def alterar_autor(request, id):
+    if not request.user.is_funcionario:
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_autores)
+    
+    if request.method == 'GET':
+        try:
+            autor = Autor.objects.get(id=id)
+        except:
+            add_message(request, constants.ERROR, 'Id de autor inválido!')
+            return redirect(visualizar_autores)
+        
+        return render(request, 'alterar_autor.html', {'autor': autor})
+
+    if request.method == 'POST':
+        try:
+            autor = Autor.objects.get(id=id)
+
+            nome = str(request.POST.get('nome')).title().lstrip() if request.POST.get('nome') else autor.nome
+            genero = request.POST.get('genero') if request.POST.get('genero') else autor.genero
+            biografia = request.POST.get('biografia') if request.POST.get('biografia') else autor.biografia
+            nacionalidade = request.POST.get('nacionalidade') if request.POST.get('nacionalidade') else autor.nacionalidade
+            data_nascimento = request.POST.get('data_nascimento') if request.POST.get('data_nascimento') else autor.data_nascimento
+            foto_autor = request.FILES.get('foto_autor') if request.FILES.get('foto_autor') else autor.foto_autor
+
+            funcionario = DadosFuncionario.objects.get(user=request.user)
+
+            autor.nome = nome
+            autor.genero = genero
+            autor.biografia = biografia
+            autor.nacionalidade = nacionalidade
+            autor.data_nascimento = data_nascimento
+            autor.foto_autor = foto_autor
+            autor.funcionario = funcionario
+
+            autor.save()
+
+        except:
+            add_message(request, constants.ERROR, "Erro ao tentar alterar autor!")
+            return redirect(visualizar_autores)
+        
+        add_message(request, constants.SUCCESS, "Autor alterado com sucesso!")
+        return redirect(visualizar_autores)
+
+def excluir_autor(request, id) -> None:
+    # TODO excluir_autor view
+    pass

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block 'head' %}
     <title>Visualizar Autores</title>
@@ -7,6 +8,14 @@
 {% block 'body' %}
     <div class="container">
         <h1>Autores</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+                <br>
+            {% endfor %}
+        {% endif %}
         {% if request.user.is_funcionario %}
             <p><a href="{% url "autor_cadastro" %}">Cadastrar Autor</a></p>
         {% endif %}
@@ -14,6 +23,13 @@
             {% for autor in autores %}
                 <div class="col-md-4" style="margin-right: auto">
                     <div class="card" style="width: 18rem; margin-bottom: 5%;">
+                        {% if request.user.is_funcionario %}
+                            <abbr title="Alterar autor">
+                                <a href="{% url "alterar_autor" autor.id %}">
+                                    <img src="{% static "img/pen-edit.svg" %}" alt="Editar pincel" style="width: 8%;"  class="ms-auto">
+                                </a>
+                            </abbr>
+                        {% endif %}
                         <div class="d-flex align-items-center" style="height: 100%;">
                             <img src="{{autor.foto_autor.url}}" alt="foto do autor" class="card-img-top mx-auto" style="max-width: 65%; max-height: 65%; object-fit: contain; margin-top: 5%">
                         </div>
