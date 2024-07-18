@@ -24,11 +24,18 @@
                 <div class="col-md-4" style="margin-right: auto">
                     <div class="card" style="width: 18rem; margin-bottom: 5%;">
                         {% if request.user.is_funcionario %}
-                            <abbr title="Alterar autor">
-                                <a href="{% url "alterar_autor" autor.id %}">
-                                    <img src="{% static "img/pen-edit.svg" %}" alt="Editar pincel" style="width: 8%;"  class="ms-auto">
-                                </a>
-                            </abbr>
+                            <div class="row">
+                                <abbr title="Excluir autor">
+                                    <a href="{% url "alterar_autor" autor.id %}">
+                                        <img src="{% static "img/pen-edit.svg" %}" alt="Alterar simbolo" style="width: 8%;">
+                                    </a>
+                                </abbr>
+                                <abbr title="Excluir autor">
+                                    <a href="{% url "excluir_autor" autor.id %}">
+                                        <img src="{% static "img/cross-exclude.svg" %}" alt="Excluir simbolo" style="width: 8%;">
+                                    </a>
+                                </abbr>
+                            </div>
                         {% endif %}
                         <div class="d-flex align-items-center" style="height: 100%;">
                             <img src="{{autor.foto_autor.url}}" alt="foto do autor" class="card-img-top mx-auto" style="max-width: 65%; max-height: 65%; object-fit: contain; margin-top: 5%">

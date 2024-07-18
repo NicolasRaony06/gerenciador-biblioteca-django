@@ -93,6 +93,14 @@ def alterar_autor(request, id):
         add_message(request, constants.SUCCESS, "Autor alterado com sucesso!")
         return redirect(visualizar_autores)
 
-def excluir_autor(request, id) -> None:
-    # TODO excluir_autor view
-    pass
+def excluir_autor(request, id):
+    if request.method == 'GET':
+        try:
+            autor = Autor.objects.get(id=id)
+            autor.delete()
+        except:
+            add_message(request, constants.ERROR, "Erro ao tentar excluir autor(a)!")
+            return redirect(visualizar_autores)
+        
+        add_message(request, constants.SUCCESS, "Autor(a) excluído com sucesso!")
+        return redirect(visualizar_autores)
