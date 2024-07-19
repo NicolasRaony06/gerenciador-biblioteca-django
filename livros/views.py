@@ -94,6 +94,10 @@ def alterar_autor(request, id):
         return redirect(visualizar_autores)
 
 def excluir_autor(request, id):
+    if not request.user.is_funcionario:
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_autores)
+
     if request.method == 'GET':
         try:
             autor = Autor.objects.get(id=id)
