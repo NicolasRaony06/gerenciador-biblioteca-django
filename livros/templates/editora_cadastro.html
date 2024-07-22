@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Cadastro de Editora</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <h1>Cadastro de Editora</h1>
+        <div class="col-md-5">
+            {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+            {% endif %}
+            <form action="{% url "editora_cadastro" %}" method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" name="nome" id="nome" placeholder="Nome da Editora" required class='form-control'>
+                <br>
+                <label for="cnpj" class="form-label">CNPJ</label>
+                <input type="text" name="cnpj" id="cnpj" placeholder="CNPJ da Editora" required class='form-control'>
+                <br>
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" name="endereco" id="endereco" placeholder="Endereço da Editora" required class='form-control'>
+                <br>
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" name="telefone" id="telefone" placeholder="Telefone da Editora" required class='form-control'>
+                <br>
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" placeholder="Email da Editora" required class='form-control'>
+                <br>
+                <label for="site" class="form-label">Site</label>
+                <input type="url" name="site" id="site" placeholder="Site da Editora" class='form-control'>
+                <br>
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea name="descricao" id="descricao" placeholder="Descrição sobre a Editora" required class='form-control'></textarea>
+                <br>
+                <label for="foto_editora" class="form-label">Foto da Editora</label>
+                <input type="file" name="foto_editora" id="foto_editora" class='form-control' placeholder="Foto da Editora">
+                <br>
+                <input type="submit" value="Cadastrar Editora" class="btn btn-primary">
+                <a href="{% url "home_funcionario" %}" class="btn btn-outline-dark">Voltar</a>
+            </form>
+            <br>
+        </div>
+    </div>
+{% endblock 'body' %}

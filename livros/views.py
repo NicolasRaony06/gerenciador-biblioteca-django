@@ -115,7 +115,7 @@ def editora_cadastro(request):
         return redirect(visualizar_editoras)
     
     if request.method == 'GET':
-        pass
+        return render(request, 'editora_cadastro.html')
 
 def visualizar_editoras(request):
     if not request.user.is_funcionario:
