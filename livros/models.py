@@ -34,4 +34,4 @@ class Editora(models.Model):
     foto_editora = models.ImageField(upload_to='editoras', default='editoras/default.jpg')
 
     def __str__(self):
-        return self.nome
+        return f'Editora: {self.nome} CNPJ: {self.cnpj}'
