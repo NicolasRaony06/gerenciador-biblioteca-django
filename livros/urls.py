@@ -7,4 +7,8 @@ urlpatterns = [
     path('visualizar_autores/', views.visualizar_autores, name="visualizar_autores"),
     path('alterar_autor/<int:id>/', views.alterar_autor, name="alterar_autor"),
     path('excluir_autor/<int:id>/', views.excluir_autor, name="excluir_autor"),
+    path('editora_cadastro/', views.editora_cadastro, name="editora_cadastro"),
+    path('visualizar_editoras/', views.visualizar_editoras, name="visualizar_editoras"),
+    path('alterar_editora/<int:id>/', views.alterar_editora, name="alterar_editora"),
+    path('excluir_editora/<int:id>/', views.excluir_editora, name="excluir_editora"),
 ]

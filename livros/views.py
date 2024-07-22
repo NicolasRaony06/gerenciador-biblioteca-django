@@ -108,3 +108,35 @@ def excluir_autor(request, id):
         
         add_message(request, constants.SUCCESS, "Autor(a) excluído com sucesso!")
         return redirect(visualizar_autores)
+    
+def editora_cadastro(request):
+    if not request.user.is_funcionario:
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_editoras)
+    
+    if request.method == 'GET':
+        pass
+
+def visualizar_editoras(request):
+    if not request.user.is_funcionario:
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_editoras)
+    
+    if request.method == 'GET':
+        pass
+
+def alterar_editora(request):
+    if not request.user.is_funcionario:
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_editoras)
+    
+    if request.method == 'GET':
+        pass
+
+def excluir_editora(request):
+    if not request.user.is_funcionario:
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_editoras)
+    
+    if request.method == 'GET':
+        pass
