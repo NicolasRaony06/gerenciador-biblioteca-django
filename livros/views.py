@@ -158,7 +158,8 @@ def editora_cadastro(request):
         
 def visualizar_editoras(request):
     if request.method == 'GET':
-        return redirect(visualizar_autores)
+        editoras = Editora.objects.all()
+        return render(request, 'visualizar_editoras.html', {'editoras': editoras, 'is_funcionario': is_funcionario(request)})
 
 def alterar_editora(request):
     if not is_funcionario(request):
