@@ -17,7 +17,7 @@ class Autor(models.Model):
     data_ultima_atualizacao = models.DateTimeField(auto_now=True)
     funcionario = models.ForeignKey(DadosFuncionario, on_delete=models.DO_NOTHING)
     foto_autor = models.ImageField(upload_to='autores', default='autores/default.jpg')
-
+    
     def __str__(self):
         return self.nome
     
@@ -31,7 +31,8 @@ class Editora(models.Model):
     descricao = models.TextField(blank=True)
     data_cadastro = models.DateTimeField(auto_now_add=True)
     data_ultima_atualizacao = models.DateTimeField(auto_now=True)
+    funcionario = models.ForeignKey(DadosFuncionario, on_delete=models.DO_NOTHING)
     foto_editora = models.ImageField(upload_to='editoras', default='editoras/default.jpg')
 
     def __str__(self):
-        return f'Editora: {self.nome} CNPJ: {self.cnpj}'
+        return f'Editora: {self.nome} CNPJ: {self.cnpj} Última Modificação: {self.data_ultima_atualizacao}'
