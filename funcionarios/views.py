@@ -31,22 +31,21 @@ def cadastro_funcionario(request):
         data_nascimento = request.POST.get('data_nascimento')
         telefone = request.POST.get('telefone')
         genero = request.POST.get('genero')
-        foto_perfil = request.FILES.get('foto_perfil')
+        foto_perfil = request.FILES.get('foto_perfil') if request.FILES.get('foto_perfil') else 'fotos_perfil/default.jpg'
 
-        user = request.user
+        try:
+            DadosFuncionario.objects.create(
+                user = request.user,
+                nome_funcionario = nome,
+                cpf = cpf,
+                data_nascimento = data_nascimento,
+                telefone = telefone,
+                genero = genero,
+                foto_perfil = foto_perfil
+            )
 
-        user.is_funcionario = True
-        user.save()
-
-        DadosFuncionario.objects.create(
-            user = request.user,
-            nome_funcionario = nome,
-            cpf = cpf,
-            data_nascimento = data_nascimento,
-            telefone = telefone,
-            genero = genero,
-            foto_perfil = foto_perfil
-        )
-
-        add_message(request, constants.SUCCESS, 'Cadastro feito com sucesso!')
-        return redirect(home)
+            add_message(request, constants.SUCCESS, 'Cadastro feito com sucesso!')
+            return redirect(home)
+        except:
+            add_message(request, constants.ERROR, 'Erro ao tentar cadastrar um novo funcionário!')
+            return redirect(cadastro_funcionario)

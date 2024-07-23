@@ -22,7 +22,7 @@ class DadosFuncionario(models.Model):
     data_ingressao = models.DateTimeField(auto_now_add=True)
     telefone = models.CharField(max_length=15)
     genero = models.CharField(max_length=10, choices=GENERO_CHOICES)
-    foto_perfil = models.ImageField(upload_to='fotos_perfil', default='fotos_perfil/default.jpg')
+    foto_perfil = models.ImageField(upload_to='fotos_perfil')
     status = models.BooleanField(default=True)
 
     def __str__(self):

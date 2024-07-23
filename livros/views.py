@@ -20,26 +20,29 @@ def autor_cadastro(request):
         biografia = request.POST.get('biografia')
         nacionalidade = request.POST.get('nacionalidade')
         data_nascimento = request.POST.get('data_nascimento')
-        foto_autor = request.FILES.get('foto_autor')
+        foto_autor = request.FILES.get('foto_autor') if request.FILES.get('foto_autor') else 'autores/default.jpg'
 
         funcionario = DadosFuncionario.objects.get(user=request.user)
 
         if not Autor.objects.filter(nome=nome):
+            try:    
+                autor = Autor(
+                    nome = nome,
+                    genero = genero,
+                    biografia = biografia,
+                    nacionalidade = nacionalidade,
+                    data_nascimento = data_nascimento,
+                    funcionario = funcionario,
+                    foto_autor = foto_autor,
+                )
 
-            autor = Autor(
-                nome = nome,
-                genero = genero,
-                biografia = biografia,
-                nacionalidade = nacionalidade,
-                data_nascimento = data_nascimento,
-                funcionario = funcionario,
-                foto_autor = foto_autor,
-            )
+                autor.save()
 
-            autor.save()
-
-            add_message(request, constants.SUCCESS, "Autor cadastrado com sucesso!")
-            return redirect("/funcionarios/home")
+                add_message(request, constants.SUCCESS, "Autor cadastrado com sucesso!")
+                return redirect("/funcionarios/home")
+            except:
+                add_message(request, constants.ERROR, "Erro ao tentar cadastrar um novo autor!")
+                return redirect(autor_cadastro)
         
         add_message(request, constants.ERROR, f"O Autor(a) {nome} já existe")
         return redirect(autor_cadastro)
@@ -50,7 +53,7 @@ def visualizar_autores(request):
         return render(request, 'visualizar_autores.html', {'autores': autores, 'is_funcionario': is_funcionario(request)})
 
 def alterar_autor(request, id):
-    if not request.user.is_funcionario:
+    if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_autores)
     
@@ -94,7 +97,7 @@ def alterar_autor(request, id):
         return redirect(visualizar_autores)
 
 def excluir_autor(request, id):
-    if not request.user.is_funcionario:
+    if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_autores)
 
@@ -110,7 +113,7 @@ def excluir_autor(request, id):
         return redirect(visualizar_autores)
     
 def editora_cadastro(request):
-    if not request.user.is_funcionario:
+    if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_editoras)
     
@@ -125,7 +128,7 @@ def editora_cadastro(request):
         email = request.POST.get('email')
         site = request.POST.get('site')
         descricao = request.POST.get('descricao')
-        foto_editora = request.FILES.get('foto_editora')
+        foto_editora = request.FILES.get('foto_editora') if request.FILES.get('foto_editora') else 'editoras/default.jpg'
         funcionario = DadosFuncionario.objects.get(user=request.user)
 
         if Editora.objects.filter(cnpj=cnpj) or Editora.objects.filter(email=email):
@@ -149,21 +152,16 @@ def editora_cadastro(request):
 
             add_message(request, constants.SUCCESS, "Editora cadastrada com sucesso!")
             return redirect(visualizar_editoras)
-
         except:
             add_message(request, constants.ERROR, "Erro ao tentar cadastrar um nova Editora!")
             return redirect(editora_cadastro)
         
 def visualizar_editoras(request):
-    if not request.user.is_funcionario:
-        add_message(request, constants.WARNING, "Você não é funcionário!")
-        return redirect(visualizar_editoras)
-    
     if request.method == 'GET':
         return redirect(visualizar_autores)
 
 def alterar_editora(request):
-    if not request.user.is_funcionario:
+    if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_editoras)
     
@@ -171,7 +169,7 @@ def alterar_editora(request):
         pass
 
 def excluir_editora(request):
-    if not request.user.is_funcionario:
+    if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_editoras)
     
