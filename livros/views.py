@@ -47,7 +47,7 @@ def autor_cadastro(request):
 def visualizar_autores(request):
     if request.method == 'GET':
         autores = Autor.objects.all()
-        return render(request, 'visualizar_autores.html', {'autores': autores})
+        return render(request, 'visualizar_autores.html', {'autores': autores, 'is_funcionario': is_funcionario(request)})
 
 def alterar_autor(request, id):
     if not request.user.is_funcionario:

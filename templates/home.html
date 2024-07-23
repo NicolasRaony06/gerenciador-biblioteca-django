@@ -29,7 +29,7 @@
                 <br>
                 <a href="{% url "logout" %}">Logout</a>
                 <br>
-                {% if request.user.is_funcionario %}
+                {% if is_funcionario %}
                     <a href="{% url "home_funcionario" %}">Home Funcionario</a>
                 {% else %}
                     <a href="{% url "cadastro_funcionario" %}">Torne-se um Funcionário</a>

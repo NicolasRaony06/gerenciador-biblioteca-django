@@ -11,7 +11,7 @@ def home(request):
         return redirect('../../')
 
     if request.method == 'GET':
-        return render(request, 'home_funcionario.html')
+        return render(request, 'home_funcionario.html', {'is_funcionario': is_funcionario(request)})
 
 def cadastro_funcionario(request):
     if not is_logado(request):

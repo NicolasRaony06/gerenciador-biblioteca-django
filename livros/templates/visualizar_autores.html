@@ -16,14 +16,14 @@
                 <br>
             {% endfor %}
         {% endif %}
-        {% if request.user.is_funcionario %}
+        {% if is_funcionario %}
             <p><a href="{% url "autor_cadastro" %}">Cadastrar Autor</a></p>
         {% endif %}
         <div class="row">
             {% for autor in autores %}
                 <div class="col-md-4" style="margin-right: auto">
                     <div class="card" style="width: 18rem; margin-bottom: 5%;">
-                        {% if request.user.is_funcionario %}
+                        {% if is_funcionario %}
                             <div class="row">
                                 <abbr title="Excluir autor">
                                     <a href="{% url "alterar_autor" autor.id %}">
