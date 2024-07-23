@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Autor
+from .models import Autor, Editora
 from funcionarios.models import is_funcionario, DadosFuncionario
 from django.contrib.messages import add_message, constants
 
@@ -116,14 +116,51 @@ def editora_cadastro(request):
     
     if request.method == 'GET':
         return render(request, 'editora_cadastro.html')
+    
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        cnpj = request.POST.get('cnpj')
+        endereco = request.POST.get('endereco')
+        telefone = request.POST.get('telefone')
+        email = request.POST.get('email')
+        site = request.POST.get('site')
+        descricao = request.POST.get('descricao')
+        foto_editora = request.FILES.get('foto_editora')
+        funcionario = DadosFuncionario.objects.get(user=request.user)
 
+        if Editora.objects.filter(cnpj=cnpj) or Editora.objects.filter(email=email):
+            add_message(request, constants.ERROR, f"A Editora {nome} com o CNPJ {cnpj} e Email {email} já existe!")
+            return redirect(editora_cadastro)
+        
+        try:
+            editora = Editora(
+                nome=nome,
+                cnpj=cnpj,
+                endereco=endereco,
+                telefone=telefone,
+                email=email,
+                site=site,
+                descricao=descricao,
+                foto_editora=foto_editora,
+                funcionario=funcionario,
+            )
+
+            editora.save()
+
+            add_message(request, constants.SUCCESS, "Editora cadastrada com sucesso!")
+            return redirect(visualizar_editoras)
+
+        except:
+            add_message(request, constants.ERROR, "Erro ao tentar cadastrar um nova Editora!")
+            return redirect(editora_cadastro)
+        
 def visualizar_editoras(request):
     if not request.user.is_funcionario:
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_editoras)
     
     if request.method == 'GET':
-        pass
+        return redirect(visualizar_autores)
 
 def alterar_editora(request):
     if not request.user.is_funcionario:
