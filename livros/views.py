@@ -161,13 +161,51 @@ def visualizar_editoras(request):
         editoras = Editora.objects.all()
         return render(request, 'visualizar_editoras.html', {'editoras': editoras, 'is_funcionario': is_funcionario(request)})
 
-def alterar_editora(request):
+def alterar_editora(request, id):
     if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_editoras)
     
+    try:
+        editora = Editora.objects.get(id=id)
+    except:
+        add_message(request, constants.ERROR, "ID de editora inválida!")
+        return redirect(visualizar_editoras)
+
     if request.method == 'GET':
-        pass
+        return render(request, 'alterar_editora.html', {'editora': editora})
+    
+    if request.method == 'POST':
+        try:
+            nome = request.POST.get('nome') if request.POST.get('nome') else editora.nome
+            cnpj = request.POST.get('cnpj') if request.POST.get('cnpj') else editora.cnpj
+            endereco = request.POST.get('endereco') if request.POST.get('endereco') else editora.endereco
+            telefone = request.POST.get('telefone') if request.POST.get('telefone') else editora.telefone
+            email = request.POST.get('email') if request.POST.get('email') else editora.email
+            site = request.POST.get('site') if request.POST.get('site') else editora.site
+            descricao = request.POST.get('descricao') if request.POST.get('descricao') else editora.descricao
+            foto_editora = request.FILES.get('foto_editora') if request.FILES.get('foto_editora') else editora.foto_editora
+
+            funcionario = DadosFuncionario.objects.get(user=request.user)
+            
+            editora.nome = nome
+            editora.cnpj = cnpj
+            editora.endereco = endereco
+            editora.telefone = telefone
+            editora.email = email
+            editora.site = site
+            editora.descricao = descricao
+            editora.foto_editora = foto_editora
+            editora.funcionario = funcionario
+
+            editora.save()
+
+            add_message(request, constants.SUCCESS, f"Editora {nome} alterada com sucesso")
+            return redirect(visualizar_editoras)
+
+        except:
+            add_message(request, constants.ERROR, f"Erro ao tentar alterar a editora {nome}")
+            return redirect(visualizar_editoras)
 
 def excluir_editora(request):
     if not is_funcionario(request):
