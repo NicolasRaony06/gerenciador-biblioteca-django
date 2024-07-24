@@ -48,7 +48,7 @@ def autor_cadastro(request):
         return redirect(autor_cadastro)
     
 def visualizar_autores(request):
-    if request.method == 'GET':
+    if request.method == 'GET': # TODO adicionar visualização por filtro. 
         autores = Autor.objects.all()
         return render(request, 'visualizar_autores.html', {'autores': autores, 'is_funcionario': is_funcionario(request)})
 
@@ -157,7 +157,7 @@ def editora_cadastro(request):
             return redirect(editora_cadastro)
         
 def visualizar_editoras(request):
-    if request.method == 'GET':
+    if request.method == 'GET': # TODO Adicionar filtro de editoras, visulização por filtro
         editoras = Editora.objects.all()
         return render(request, 'visualizar_editoras.html', {'editoras': editoras, 'is_funcionario': is_funcionario(request)})
 

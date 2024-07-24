@@ -36,3 +36,20 @@ class Editora(models.Model):
 
     def __str__(self):
         return f'Editora: {self.nome} CNPJ: {self.cnpj} Última Modificação: {self.data_ultima_atualizacao}'
+    
+class Livro(models.Model):
+    titulo = models.CharField(max_length=150, null=False, blank=False)
+    isbn = models.CharField(max_length=20, unique=True, null=False)
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
+    editora = models.ForeignKey(Editora, on_delete=models.CASCADE)
+    data_publicacao = models.DateField(null=False)
+    numero_paginas = models.PositiveIntegerField(null=False)
+    numero_amostras = models.PositiveBigIntegerField(default=0)
+    descricao = models.TextField(blank=True)
+    capa = models.ImageField(upload_to='livros_capas', default='livros_capas/default.jpeg')
+    data_cadastro = models.DateTimeField(auto_now_add=True)
+    data_ultima_atualizacao = models.DateTimeField(auto_now=True)
+    funcionario = models.ForeignKey(DadosFuncionario, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f'Livro: {self.titulo} Autor(a): {self.autor.nome} Editora: {self.editora.nome}'
