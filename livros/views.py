@@ -207,10 +207,18 @@ def alterar_editora(request, id):
             add_message(request, constants.ERROR, f"Erro ao tentar alterar a editora {nome}")
             return redirect(visualizar_editoras)
 
-def excluir_editora(request):
+def excluir_editora(request, id):
     if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
         return redirect(visualizar_editoras)
     
     if request.method == 'GET':
-        pass
+        try:
+            editora = Editora.objects.get(id=id)
+            editora.delete()
+
+            add_message(request, constants.SUCCESS, "Editora excluida com sucesso!")
+            return redirect(visualizar_editoras)
+        except:
+            add_message(request, constants.ERROR, "Erro ao tentar excluir a editora")
+            return redirect(visualizar_editoras)
