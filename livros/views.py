@@ -233,3 +233,17 @@ def excluir_editora(request, id):
         except:
             add_message(request, constants.ERROR, "Erro ao tentar excluir a editora")
             return redirect(visualizar_editoras)
+        
+def livro_cadastro(request):
+    if not is_funcionario(request):
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_livros)
+    
+    if request.method == 'GET':
+        autores = Autor.objects.all()
+        editoras = Editora.objects.all()
+
+        return render(request, "livro_cadastro.html", {'autores': autores, 'editoras': editoras})
+    
+def visualizar_livros(request):
+    return redirect(visualizar_autores)

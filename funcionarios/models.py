@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 def is_funcionario(request):
     try:
-        if DadosFuncionario.objects.filter(user=request.user):
+        if DadosFuncionario.objects.filter(user=request.user, status=True):
             return True
     except:
         return False
