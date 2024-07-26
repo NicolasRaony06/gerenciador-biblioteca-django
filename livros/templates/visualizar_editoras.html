@@ -19,7 +19,17 @@
         {% if is_funcionario %}
             <p><a href="{% url "editora_cadastro" %}">Cadastrar uma nova Editora</a></p>
         {% endif %}
+        <div class="col-md-5">
+            <form action="{% url "visualizar_editoras" %}" method="get">
+                {% csrf_token %}
+                <input type="text" name="nome_editora" placeholder="Buscar por Editora" style="margin-bottom: 1rem" class="form-control">
+                <input type="submit" value="Buscar" class="btn btn-primary">
+                <a href="{% url "visualizar_editoras" %}" class="btn btn-outline-dark">Resetar</a>
+            </form>
+        </div>
+        <hr>
         <div class="row">
+            <br>
             {% for editora in editoras %}
                 <div class="col-md-4" style="margin-right: auto">
                     <div class="card" style="width: 18rem; margin-bottom: 5%;">

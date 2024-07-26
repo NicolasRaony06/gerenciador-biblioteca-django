@@ -54,6 +54,9 @@ def visualizar_autores(request):
         if request.GET.get('nome_autor'):
             autores = autores.filter(nome__icontains=request.GET.get('nome_autor'))
 
+        if request.GET.get('genero'):
+            autores = autores.filter(genero=request.GET.get('genero'))
+
         return render(request, 'visualizar_autores.html', {'autores': autores, 'is_funcionario': is_funcionario(request)})
 
 def alterar_autor(request, id):

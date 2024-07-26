@@ -7,7 +7,9 @@
 
 {% block 'body' %}
     <div class="container">
+        <br>
         <h1>Autores</h1>
+        <hr>
         {% if messages %}
             {% for message in messages %}
                 <section class="alert {{message.tags}}">
@@ -19,7 +21,29 @@
         {% if is_funcionario %}
             <p><a href="{% url "autor_cadastro" %}">Cadastrar Autor</a></p>
         {% endif %}
+        <div class="col-md-5">
+            <form action="{% url "visualizar_autores" %}" method="get">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8" style="margin-bottom: 1rem">
+                        <input type="text" name="nome_autor" placeholder="Buscar por Autor(a)" class="form-control">
+                    </div>
+                    <div class="col-md-4" style="margin-bottom: 1rem">
+                        <select name="genero" class="form-select">
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                            <option value="" selected>Outro</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" value="Buscar" class="btn btn-primary">
+                <a href="{% url "visualizar_autores" %}" class="btn btn-outline-dark">Resetar</a>
+            </form>
+        </div>
+        <br>
+        <hr>
         <div class="row">
+            <br>
             {% for autor in autores %}
                 <div class="col-md-4" style="margin-right: auto">
                     <div class="card" style="width: 18rem; margin-bottom: 5%;">
