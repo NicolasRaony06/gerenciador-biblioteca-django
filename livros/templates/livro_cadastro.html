@@ -33,7 +33,7 @@
                         <option value="{{genero.id}}">{{genero.nome}}</option>
                     {% endfor %}
                 </select>
-                <br>
+                <p>Não achou o Gênero? <a href="{% url "genero_cadastro" %}" style="text-decoration: None">Cadastre-o</a></p>
                 <label for="autor" class="form-label">Autor</label>
                 <select name="autor" id="autor" class="form-select" required>
                     {% for autor in autores %}
