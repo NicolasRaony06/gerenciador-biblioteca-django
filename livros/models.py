@@ -36,8 +36,14 @@ class Editora(models.Model):
 
     def __str__(self):
         return f'Editora: {self.nome} CNPJ: {self.cnpj} Última Modificação: {self.data_ultima_atualizacao}'
-    
-class Livro(models.Model):
+
+class Genero(models.Model):
+    nome = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return self.nome
+
+class Livro(models.Model): #TODO adicionar genero do livro
     titulo = models.CharField(max_length=150, null=False, blank=False)
     isbn = models.CharField(max_length=20, unique=True, null=False)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
@@ -53,3 +59,4 @@ class Livro(models.Model):
 
     def __str__(self):
         return f'Livro: {self.titulo} Autor(a): {self.autor.nome} Editora: {self.editora.nome}'
+
