@@ -46,6 +46,7 @@ class Genero(models.Model):
 class Livro(models.Model): #TODO adicionar genero do livro
     titulo = models.CharField(max_length=150, null=False, blank=False)
     isbn = models.CharField(max_length=20, unique=True, null=False)
+    generos = models.ManyToManyField(Genero, related_name='livros')
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     editora = models.ForeignKey(Editora, on_delete=models.CASCADE)
     data_publicacao = models.DateField(null=False)
