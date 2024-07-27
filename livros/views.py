@@ -286,4 +286,7 @@ def livro_cadastro(request):
             return redirect(livro_cadastro)
 
 def visualizar_livros(request):
-    return redirect(visualizar_autores)
+    if request.method == 'GET':
+        livros = Livro.objects.all()
+        
+        return render(request, 'visulizar_livros.html', {'livros': livros})
