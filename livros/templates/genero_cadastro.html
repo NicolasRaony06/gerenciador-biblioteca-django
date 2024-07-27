@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Cadastro de Gênero</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <h1>Cadastro de Gênero</h1>
+        <hr>
+        <div class="col-md-5">
+            {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+            {% endif %}
+            <form action="{% url "genero_cadastro" %}" method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <br>
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" name="nome" id="nome" placeholder="Nome do gênero" required class='form-control'>
+                <br>
+                <input type="submit" value="Cadastrar Genero" class="btn btn-primary">
+                <a href="{% url "visualizar_livros" %}" class="btn btn-outline-dark">Voltar</a>
+            </form>
+            <br>
+        </div>
+    </div>
+{% endblock 'body' %}

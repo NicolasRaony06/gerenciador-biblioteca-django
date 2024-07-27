@@ -28,7 +28,7 @@
                 <input type="text" name="isbn" id="isbn" placeholder="ISBN do livro" required class='form-control'>
                 <br>
                 <label for="generos" class="form-label">Gêneros</label>
-                <select multiple name="generos" id="generos" class="form-select">
+                <select multiple name="generos" id="generos" class="form-select" required>
                     {% for genero in generos %}
                         <option value="{{genero.id}}">{{genero.nome}}</option>
                     {% endfor %}

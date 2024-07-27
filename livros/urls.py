@@ -14,4 +14,5 @@ urlpatterns = [
     path("visualizar_livros/", views.visualizar_livros, name="visualizar_livros"),
     path("livro_cadastro/", views.livro_cadastro, name="livro_cadastro"),
     path("visualizar_livros/", views.visualizar_livros, name="visualizar_livros"),
+    path("genero_cadastro/", views.genero_cadastro, name="genero_cadastro"),
 ]

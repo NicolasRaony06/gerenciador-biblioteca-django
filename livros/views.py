@@ -234,6 +234,35 @@ def excluir_editora(request, id):
             add_message(request, constants.ERROR, "Erro ao tentar excluir a editora")
             return redirect(visualizar_editoras)
         
+def genero_cadastro(request):
+    if not is_funcionario(request):
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_editoras)
+
+    if request.method == 'GET':
+        return render(request, "genero_cadastro.html")
+
+    if request.method == 'POST':
+        nome = str(request.POST.get('nome')).title().lstrip()
+
+        if Genero.objects.filter(nome=nome):
+            add_message(request, constants.ERROR, f"O Genero {nome} já está cadastrado!")
+            return redirect(genero_cadastro)
+        
+        try:
+            genero = Genero(
+                nome=nome,
+            )
+
+            genero.save()
+
+            add_message(request, constants.SUCCESS, "Genero cadastrado com sucesso!")
+            return redirect(visualizar_livros)
+        
+        except:
+            add_message(request, constants.ERROR, "Erro ao tentar cadastrar um novo genero!")
+            return redirect(genero_cadastro)
+
 def livro_cadastro(request):
     if not is_funcionario(request):
         add_message(request, constants.WARNING, "Você não é funcionário!")
@@ -242,8 +271,9 @@ def livro_cadastro(request):
     if request.method == 'GET':
         autores = Autor.objects.all()
         editoras = Editora.objects.all()
+        generos = Genero.objects.all()
 
-        return render(request, "livro_cadastro.html", {'autores': autores, 'editoras': editoras})
+        return render(request, "livro_cadastro.html", {'autores': autores, 'editoras': editoras, 'generos': generos})
     
     if request.method == 'POST':    
         titulo = str(request.POST.get('titulo')).title().lstrip()
