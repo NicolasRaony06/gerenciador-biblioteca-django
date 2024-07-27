@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Autor, Editora, Livro
+from .models import Autor, Editora, Livro, Genero
 from funcionarios.models import is_funcionario, DadosFuncionario
 from django.contrib.messages import add_message, constants
 
@@ -248,6 +248,7 @@ def livro_cadastro(request):
     if request.method == 'POST':    
         titulo = str(request.POST.get('titulo')).title().lstrip()
         isbn = request.POST.get('isbn')
+        generos_ids = request.POST.getlist('generos')
         autor_id = request.POST.get('autor')
         editora_id = request.POST.get('editora')
         data_publicacao = request.POST.get('data_publicacao')
@@ -278,6 +279,10 @@ def livro_cadastro(request):
 
             livro.save()
 
+            for genero_id in generos_ids:
+                genero = Genero.objects.get(id=genero_id)
+                livro.generos.add(genero)
+
             add_message(request, constants.SUCCESS, "Livro cadastrado com sucesso!")
             return redirect(visualizar_livros)
         
@@ -288,5 +293,5 @@ def livro_cadastro(request):
 def visualizar_livros(request):
     if request.method == 'GET':
         livros = Livro.objects.all()
-        
-        return render(request, 'visulizar_livros.html', {'livros': livros})
+
+        return render(request, 'visualizar_livros.html', {'livros': livros})
