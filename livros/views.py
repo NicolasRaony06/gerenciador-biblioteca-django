@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Autor, Editora
+from .models import Autor, Editora, Livro
 from funcionarios.models import is_funcionario, DadosFuncionario
 from django.contrib.messages import add_message, constants
 
@@ -128,7 +128,7 @@ def editora_cadastro(request):
         return render(request, 'editora_cadastro.html')
     
     if request.method == 'POST':
-        nome = request.POST.get('nome')
+        nome = str(request.POST.get('nome')).title().lstrip()
         cnpj = request.POST.get('cnpj')
         endereco = request.POST.get('endereco')
         telefone = request.POST.get('telefone')
@@ -188,7 +188,7 @@ def alterar_editora(request, id):
     
     if request.method == 'POST':
         try:
-            nome = request.POST.get('nome') if request.POST.get('nome') else editora.nome
+            nome = str(request.POST.get('nome')).title().lstrip() if request.POST.get('nome') else editora.nome
             cnpj = request.POST.get('cnpj') if request.POST.get('cnpj') else editora.cnpj
             endereco = request.POST.get('endereco') if request.POST.get('endereco') else editora.endereco
             telefone = request.POST.get('telefone') if request.POST.get('telefone') else editora.telefone
@@ -245,5 +245,45 @@ def livro_cadastro(request):
 
         return render(request, "livro_cadastro.html", {'autores': autores, 'editoras': editoras})
     
+    if request.method == 'POST':    
+        titulo = str(request.POST.get('titulo')).title().lstrip()
+        isbn = request.POST.get('isbn')
+        autor_id = request.POST.get('autor')
+        editora_id = request.POST.get('editora')
+        data_publicacao = request.POST.get('data_publicacao')
+        numero_paginas = request.POST.get('numero_paginas')
+        numero_amostras = request.POST.get('numero_amostras') if not request.POST.get('numero_amostras') == str('') else 0
+        descricao = request.POST.get('descricao')
+        capa = request.FILES.get('capa') if request.FILES.get('capa') else 'livros_capas/default.jpeg'
+        funcionario = DadosFuncionario.objects.get(user=request.user)
+
+        if Livro.objects.filter(isbn=isbn):
+            add_message(request, constants.ERROR, f"O ISBN {isbn} já está cadastrado!")
+
+            return redirect(livro_cadastro)
+
+        try:
+            livro = Livro(
+                titulo = titulo,
+                isbn = isbn,
+                autor = Autor.objects.get(id=autor_id),
+                editora = Editora.objects.get(id=editora_id),
+                data_publicacao = data_publicacao,
+                numero_paginas = numero_paginas,
+                numero_amostras = numero_amostras,
+                descricao = descricao, 
+                capa = capa,
+                funcionario = funcionario,
+            )
+
+            livro.save()
+
+            add_message(request, constants.SUCCESS, "Livro cadastrado com sucesso!")
+            return redirect(visualizar_livros)
+        
+        except:
+            add_message(request, constants.ERROR, "Erro ao tentar cadastrar um novo livro!")
+            return redirect(livro_cadastro)
+
 def visualizar_livros(request):
     return redirect(visualizar_autores)

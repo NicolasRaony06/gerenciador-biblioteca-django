@@ -30,14 +30,14 @@
                 <label for="autor" class="form-label">Autor</label>
                 <select name="autor" id="autor" class="form-select" required>
                     {% for autor in autores %}
-                        <option value="{{autor.id}}">{{autor.nome}}</option>
+                        <option value={{autor.id}}>{{autor.nome}}</option>
                     {% endfor %}
                 </select>
                 <p>Não achou o&#40;a&#41; autor&#40;a&#41;? <a href="{% url "autor_cadastro" %}" style="text-decoration: None">Cadastre-o&#40;a&#41;</a></p>
                 <label for="editora" class="form-label">Editora</label>
                 <select name="editora" id="editora" class="form-select" required>
                     {% for editora in editoras %}
-                        <option value="{{editora.id}}">{{editora.nome}}</option>
+                        <option value={{editora.id}}>{{editora.nome}}</option>
                     {% endfor %}
                 </select>
                 <p>Não achou a Editora? <a href="{% url "editora_cadastro" %}" style="text-decoration: None">Cadastre-a</a></p>
