@@ -14,5 +14,7 @@ urlpatterns = [
     path("visualizar_livros/", views.visualizar_livros, name="visualizar_livros"),
     path("livro_cadastro/", views.livro_cadastro, name="livro_cadastro"),
     path("visualizar_livros/", views.visualizar_livros, name="visualizar_livros"),
+    path('alterar_livro/<int:id>/', views.alterar_livro, name="alterar_livro"),
+    path('excluir_livro/<int:id>/', views.excluir_livro, name="excluir_livro"),
     path("genero_cadastro/", views.genero_cadastro, name="genero_cadastro"),
 ]

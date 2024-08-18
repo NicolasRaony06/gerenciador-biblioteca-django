@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block 'head' %}
+    <title>Alteração de Livro</title>
+{% endblock 'head' %}
+
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <h1>Alterar Livro</h1>
+        <div class="col-md-5">
+            {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+            {% endif %}
+            <form action="{% url "alterar_livro" livro.id %}" method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" name="titulo" id="titulo" placeholder="Título do livro" value="{{livro.titulo}}" class='form-control'>
+                <br>
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text" name="isbn" id="isbn" placeholder="ISBN do livro" value="{{livro.isbn}}" class='form-control'>
+                <br>
+                <label for="generos" class="form-label">Gêneros</label>
+                <select multiple name="generos" id="generos" class="form-select">
+                    {% for genero in generos %}
+                        <option value="{{genero.id}}">{{genero.nome}}</option>
+                    {% endfor %}
+                </select>
+                <p>Não achou o Gênero? <a href="{% url "genero_cadastro" %}" style="text-decoration: None">Cadastre-o</a></p>
+                <label for="autor" class="form-label">Autor</label>
+                <select name="autor" id="autor" class="form-select">
+                    {% for autor in autores %}
+                        <option value={{autor.id}} {% if livro.autor == autor %}selected{% endif %}>{{autor.nome}}</option>
+                    {% endfor %}
+                </select>
+                <p>Não achou o&#40;a&#41; autor&#40;a&#41;? <a href="{% url "autor_cadastro" %}" style="text-decoration: None">Cadastre-o&#40;a&#41;</a></p>
+                <label for="editora" class="form-label">Editora</label>
+                <select name="editora" id="editora" class="form-select" required>
+                    {% for editora in editoras %}
+                        <option value={{editora.id}} {% if livro.editora == editora %}selected{% endif %}>{{editora.nome}}</option>
+                    {% endfor %}
+                </select>
+                <p>Não achou a Editora? <a href="{% url "editora_cadastro" %}" style="text-decoration: None">Cadastre-a</a></p>
+                <label for="data_publicacao" class="form-label">Data de Publicação</label>
+                <input type="date" name="data_publicacao" id="data_publicacao" placeholder="Data de Publicação" value="{{livro.data_publicacao}}" class='form-control'>
+                <br>
+                <label for="numero_paginas" class="form-label">Número de Páginas</label>
+                <input type="number" name="numero_paginas" id="numero_paginas" placeholder="Número de Páginas" class='form-control' value="{{livro.numero_paginas}}">
+                <br>
+                <label for="numero_amostras" class="form-label">Número de amostras disponíveis</label>
+                <input type="number" name="numero_amostras" id="numero_amostras" placeholder="Número de Amostras" class="form-control" value="{{livro.numero_amostras}}">
+                <br>
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea name="descricao" id="descricao" placeholder="Breve descrição sobre o livro" class="form-control"></textarea>
+                <br>
+                <label for="capa" class="form-label">Capa do Livro</label>
+                <input type="file" name="capa" id="capa" class='form-control' placeholder="Imagem para capa do livro">
+                <br>
+                <input type="submit" value="Alterar Livro" class="btn btn-primary">
+                <a href="{% url "visualizar_livros" %}" class="btn btn-outline-dark">Voltar</a>
+            </form>
+            <br>
+        </div>
+    </div>
+{% endblock 'body' %}
+

@@ -324,4 +324,67 @@ def visualizar_livros(request):
     if request.method == 'GET':
         livros = Livro.objects.all()
 
-        return render(request, 'visualizar_livros.html', {'livros': livros})
+        return render(request, 'visualizar_livros.html', {'livros': livros, 'is_funcionario': is_funcionario(request)})
+    
+def alterar_livro(request, id):
+    if not is_funcionario(request):
+        add_message(request, constants.WARNING, "Você não é funcionário!")
+        return redirect(visualizar_livros)
+
+    try:
+        livro = Livro.objects.get(id=id)
+    except:
+        add_message(request, constants.ERROR, "ID de livro inválido!")
+        return redirect(visualizar_livros)
+
+    if request.method == 'GET':
+        autores = Autor.objects.all()
+        editoras = Editora.objects.all()
+        generos = Genero.objects.all()
+
+        return render(request, 'alterar_livro.html', {'livro': livro, 'autores': autores, 'editoras': editoras, 'generos': generos})
+    
+    if request.method == 'POST':
+        try:
+            titulo = str(request.POST.get('titulo')).title().lstrip() if request.POST.get('titulo') else livro.titulo
+            isbn = request.POST.get('isbn') if request.POST.get('isbn') else livro.isbn
+            generos_ids = request.POST.getlist('generos') if request.POST.getlist('generos') else livro.generos.all()
+            autor_id = request.POST.get('autor') if request.POST.get('autor') else livro.autor.id
+            editora_id = request.POST.get('editora') if request.POST.get('editora') else livro.editora.id
+            data_publicacao = request.POST.get('data_publicacao') if request.POST.get('data_publicacao') else livro.data_publicacao
+            numero_paginas = request.POST.get('numero_paginas') if request.POST.get('numero_paginas') else livro.numero_paginas
+            numero_amostras = request.POST.get('numero_amostras') if request.POST.get('numero_amostras') else livro.numero_amostras  #if not request.POST.get('numero_amostras') == str('') else 0
+            descricao = request.POST.get('descricao') if request.POST.get('descricao') else livro.descricao
+            capa = request.FILES.get('capa') if request.FILES.get('capa') else livro.capa
+            funcionario = DadosFuncionario.objects.get(user=request.user)
+
+            livro.titulo = titulo
+            livro.isbn = isbn
+            livro.autor = Autor.objects.get(id=autor_id)
+            livro.editora = Editora.objects.get(id=editora_id)
+            livro.data_publicacao = data_publicacao
+            livro.numero_paginas = numero_paginas
+            livro.numero_amostras = numero_amostras
+            livro.descricao = descricao
+            livro.capa = capa
+            livro.funcionario = funcionario
+
+            livro.save()
+
+            if request.POST.getlist('generos'):
+                lista_generos = []
+                for genero_id in generos_ids:
+                    genero = Genero.objects.get(id=genero_id)
+                    lista_generos.append(genero)
+
+                livro.generos.set(lista_generos)
+
+            add_message(request, constants.SUCCESS, f"Livro {titulo} alterado com sucesso!")
+            return redirect(visualizar_livros)
+
+        except:
+            add_message(request, constants.ERROR, 'Erro ao tentar alterar livro!')
+            return redirect(visualizar_livros)
+        
+def excluir_livro(request, id):
+    pass
