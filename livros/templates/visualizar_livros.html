@@ -24,42 +24,43 @@
                 {% csrf_token %}
                 <input type="text" name="nome_livro" placeholder="Buscar por Livro" style="margin-bottom: 1rem" class="form-control">
                 <input type="submit" value="Buscar" class="btn btn-primary">
-                <a href="{% url "visualizar_editoras" %}" class="btn btn-outline-dark">Resetar</a>
+                <a href="{% url "visualizar_livros" %}" class="btn btn-outline-dark">Resetar</a>
             </form>
         </div>
         <hr>
         <div class="row">
             <br>
-            {% for editora in editoras %}
+            {% for livro in livros %}
                 <div class="col-md-4" style="margin-right: auto">
                     <div class="card" style="width: 18rem; margin-bottom: 5%;">
                         {% if is_funcionario %}
                             <div class="row">
-                                <abbr title="Excluir editora">
-                                    <a href="{% url "alterar_editora" editora.id %}">
+                                <abbr title="Excluir livro">
+                                    <a href="{% url "alterar_livro" livro.id %}">
                                         <img src="{% static "img/pen-edit.svg" %}" alt="Símbolo de Alterar" style="width: 8%;">
                                     </a>
                                 </abbr>
-                                <abbr title="Excluir editora">
-                                    <a href="{% url "excluir_editora" editora.id %}">
+                                <abbr title="Excluir livro">
+                                    <a href="{% url "excluir_livro" livro.id %}">
                                         <img src="{% static "img/cross-exclude.svg" %}" alt="Símbolo de Excluir" style="width: 8%;">
                                     </a>
                                 </abbr>
                             </div>
                         {% endif %}
                         <div class="d-flex align-items-center">
-                            <img src="{{editora.foto_editora.url}}" alt="foto da editora" class="card-img-top mx-auto" style="max-width: 60%; object-fit: contain; margin-top: 5%">
+                            <img src="{{livro.capa.url}}" alt="foto do livro" class="card-img-top mx-auto" style="max-width: 60%; object-fit: contain; margin-top: 5%">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{editora.nome}}</h5>
-                            <p>Email: {{editora.email}}</p>
-                            <p>Site: <a href="{{editora.site}}" target="_blank">{{editora.site}}</a></p>
-                            <p>Descrição: {{editora.descricao}}</p>
+                            <h5 class="card-title">{{livro.nome}}</h5>
+                            <p>Gêneros: {% for genero in livro.generos.all %}{{genero.nome}}{% endfor %}</p>
+                            <p>Autor&#40a&#41: {{livro.autor.nome}}</p>
+                            <p>Editora: {{livro.editora.nome}}</p>
+                            <p>Descrição: {{livro.descricao}}</p>
                         </div>
                     </div>
                 </div>
             {% empty %}
-                <p>Nenhuma editora encontrada.</p>
+                <p>Nenhum livro encontrado.</p>
             {% endfor %}
         </div>
     </div>
