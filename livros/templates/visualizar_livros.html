@@ -51,7 +51,7 @@
                             <img src="{{livro.capa.url}}" alt="foto do livro" class="card-img-top mx-auto" style="max-width: 60%; object-fit: contain; margin-top: 5%">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{livro.nome}}</h5>
+                            <h5 class="card-title">{{livro.titulo}}</h5>
                             <p>Gêneros: {% for genero in livro.generos.all %}{{genero.nome}}{% endfor %}</p>
                             <p>Autor&#40a&#41: {{livro.autor.nome}}</p>
                             <p>Editora: {{livro.editora.nome}}</p>
